@@ -15,7 +15,7 @@
     },
     "autoload":{
         "psr-4":{
-            "shijunjun\\": "src/"
+            "shijunjun\\uniqid\\": "src/"
         }
     }
 }

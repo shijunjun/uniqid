@@ -1,5 +1,5 @@
 <?php
-namespace shijunjun;
+namespace shijunjun\uniqid;
 /**
  * 分布式 id 生成类     
  * 组成: <毫秒级时间戳+机器节点id+毫秒内自增ID序列号>

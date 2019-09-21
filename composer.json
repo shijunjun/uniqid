@@ -1,0 +1,21 @@
+{
+    "name": "shijunjun/uniqid",
+    "description": "生成唯一的ID(整形和62进制的字符串)",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "shijunjun",
+            "email": "jun_5197@163.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "php" : ">=7.0.0"
+    },
+    "autoload":{
+        "psr-4":{
+            "shijunjun\\": "src/"
+        }
+    }
+}

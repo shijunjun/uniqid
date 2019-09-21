@@ -4,14 +4,14 @@ namespace shijunjun\uniqid;
  * 分布式 id 生成类     
  * 组成: <毫秒级时间戳+机器节点id+毫秒内自增ID序列号>
  * 默认情况下42bit的时间戳可以支持该算法使用到2109年05月15日，
- * 12bit的工作机器节点id可以支持4095台机器，
- * 序列号支持1毫秒产生1023个自增序列id
+ * 5bit的工作机器节点id可以支持32台机器，
+ * 序列号支持1毫秒产生131072个自增序列id
  * 
  * @Date 2019年9月20日 上午9:39:33
  * @Author shijunjun
  * @Email jun_5197@163.com
  */
-class UniqId
+class Id
 {
     /**
      * 62进制字典
@@ -25,13 +25,13 @@ class UniqId
     const EPOCH = 0;
     
     /**
-     * 机器节点的二进制位数
+     * 机器节点的二进制位数(最大32,0-31)
      * @var integer
      */
     const LEN_NODE = 5;
     
     /**
-     * 毫秒内自增ID的二进制位数
+     * 毫秒内自增ID的二进制位数也就是说每毫秒内最多可生成131072个自增ID
      * @var integer
      */
     const LEN_SEQ = 17;
@@ -55,7 +55,7 @@ class UniqId
     private static $nodeid = 0;
     
     /**
-     * 设置节点ID ,最多4095个节点 [0-4095]
+     * 设置节点ID ,最多31个节点 [0-31]
      * @param number $nid 节点ID
      * @author shijunjun
      * @email jun_5197@163.com
@@ -100,7 +100,7 @@ class UniqId
      * @email jun_5197@163.com
      * @date 2019年9月20日 下午1:12:39
      */
-    public static function parseId($number)
+    public static function parseUniqId($number)
     {
         // 将ID转化为二进制
         $number_bin = decbin($number);
@@ -138,6 +138,30 @@ class UniqId
     }
     
     /**
+     * 将62进制的uid转位number类型的uid
+     * @param string $uniqid 62进制的uid
+     * @return number
+     * @author shijunjun
+     * @email jun_5197@163.com
+     * @date 2019年9月21日 下午2:46:43
+     */
+    public static function parseUniqIdForm62ToNumber(string $uniqid){
+        return self::from62to10($uniqid);
+    }
+    
+    /**
+     * 解析62进制的uuid->数组
+     * @param string $uniqid
+     * @return array
+     * @author shijunjun
+     * @email jun_5197@163.com
+     * @date 2019年9月21日 下午2:50:00
+     */
+    public static function parseUniqIdForm62(string $uniqid){
+        return self::parseUniqId(self::from62to10($uniqid));
+    }
+    
+    /**
      * 将十进制数转化为62进制
      * @param number $dec 十进制数
      * @return string
@@ -145,7 +169,7 @@ class UniqId
      * @email jun_5197@163.com
      * @date 2019年9月20日 下午1:10:04
      */
-    public static function from10to62($dec) {
+    private static function from10to62($dec) {
         $result = '';
         do {
             $result = self::DICT62[$dec % 62] . $result;
@@ -162,7 +186,7 @@ class UniqId
      * @email jun_5197@163.com
      * @date 2019年9月20日 下午1:11:34
      */    
-    public static function from62to10($str){
+    private static function from62to10($str){
         $len = strlen($str);
         $dec = 0;
         for($i = 0;$i<$len;$i++){

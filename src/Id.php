@@ -134,7 +134,7 @@ class Id
      */
     public static function getUniqIdTo62()
     {
-        return from10to62(self::getUniqId());
+        return self::from10to62(self::getUniqId());
     }
     
     /**

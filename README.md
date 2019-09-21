@@ -21,7 +21,7 @@ echo ($number = \shijunjun\uniqid\Id::getUniqId()) . PHP_EOL;
  * 生成62进制的uniqid
  * ex: 7Q9vbTWnK01
  */
-echo ($str_uid=\shijunjun\uniqid\Id::getUniqIdTo62()) . PHP_EOL;
+echo ($str_uid = \shijunjun\uniqid\Id::getUniqIdTo62()) . PHP_EOL;
 
 /*
  * 解析62进制字符串的uniqid

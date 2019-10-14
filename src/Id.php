@@ -49,7 +49,7 @@ class Id
     private static $sequence = 0;
     
     /**
-     * 机器节点id 最大个数4095,也就是0-4095
+     * 机器节点id 最大个数32个,也就是0-31
      * @var integer
      */
     private static $nodeid = 0;
